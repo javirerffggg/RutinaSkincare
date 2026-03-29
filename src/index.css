@@ -26,6 +26,7 @@
   --mesh-2: rgba(243, 226, 224, 0.3);
   --mesh-3: rgba(122, 87, 64, 0.05);
   --mesh-4: rgba(255, 222, 165, 0.2);
+  transition: color 2s ease, background-color 2s ease;
 }
 
 .dawn {
@@ -112,6 +113,16 @@
 
   .squircle {
     border-radius: 1.5rem;
+  }
+
+  .animate-shine {
+    animation: shine 10s infinite linear;
+  }
+
+  @keyframes shine {
+    0% { transform: translateX(-200%) skewX(-15deg); }
+    20% { transform: translateX(200%) skewX(-15deg); }
+    100% { transform: translateX(200%) skewX(-15deg); }
   }
 }
 

@@ -28,6 +28,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({ children, className, delay
       className={cn("premium-glass rim-light squircle p-4 relative group overflow-hidden", className)}
     >
       {/* Dynamic Shine Effect */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent w-1/2 -skew-x-12 animate-shine" />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
       {children}
     </motion.div>
@@ -96,7 +99,8 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
             
             <Icon 
               className={`w-5 h-5 mb-1 z-10 transition-transform duration-300 ${isActive ? 'text-primary scale-110' : 'text-stone-400'}`} 
-              strokeWidth={1.5}
+              strokeWidth={1.2}
+              style={isActive ? { filter: 'drop-shadow(0 0 8px var(--primary-color))' } : {}}
             />
             <span className={cn(
               "font-mono text-[9px] tracking-[0.2em] uppercase transition-all duration-300 z-10",

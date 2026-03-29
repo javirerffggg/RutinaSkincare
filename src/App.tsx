@@ -20,10 +20,12 @@ export default function App() {
     mouseY.set((clientY / innerHeight) - 0.5);
   };
 
-  const grainX = useTransform(mouseX, [-0.5, 0.5], [-30, 30]);
-  const grainY = useTransform(mouseY, [-0.5, 0.5], [-30, 30]);
-  const meshX = useTransform(mouseX, [-0.5, 0.5], [10, -10]);
-  const meshY = useTransform(mouseY, [-0.5, 0.5], [10, -10]);
+  const grainX = useTransform(mouseX, [-0.5, 0.5], [-50, 50]);
+  const grainY = useTransform(mouseY, [-0.5, 0.5], [-50, 50]);
+  const meshX = useTransform(mouseX, [-0.5, 0.5], [20, -20]);
+  const meshY = useTransform(mouseY, [-0.5, 0.5], [20, -20]);
+  const contentX = useTransform(mouseX, [-0.5, 0.5], [-5, 5]);
+  const contentY = useTransform(mouseY, [-0.5, 0.5], [-5, 5]);
 
   useEffect(() => {
     const now = new Date();
@@ -64,7 +66,12 @@ export default function App() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="font-display text-4xl md:text-5xl text-on-surface leading-[1.1] tracking-tight font-light">
-            {timeOfDay === 'morning' ? (
+            {document.documentElement.classList.contains('dawn') ? (
+              <>
+                Primeros <span className="italic font-normal">Destellos</span> <br />
+                <span className="font-bold">de Luz</span>
+              </>
+            ) : timeOfDay === 'morning' ? (
               <>
                 El <span className="italic font-normal">Despertar</span> <br />
                 <span className="font-bold">de la Piel</span>
@@ -110,7 +117,7 @@ export default function App() {
               </div>
               <div className="flex-1 max-w-xl space-y-2">
                 <div className="flex items-center gap-2 text-primary/60">
-                  <Sun className="w-3 h-3" />
+                  <Sun className="w-3 h-3" strokeWidth={1.2} />
                   <span className="text-[9px] font-bold uppercase tracking-widest">Mañana</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
@@ -119,7 +126,7 @@ export default function App() {
                   ))}
                 </div>
                 <div className="flex items-center gap-2 text-primary/60 pt-1">
-                  <Moon className="w-3 h-3" />
+                  <Moon className="w-3 h-3" strokeWidth={1.2} />
                   <span className="text-[9px] font-bold uppercase tracking-widest">Noche</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5">
@@ -157,7 +164,7 @@ export default function App() {
                 "{reminder}"
               </p>
               <div className="mt-6 flex justify-end">
-                <CheckCircle2 className="w-4 h-4 text-primary/10" strokeWidth={1} />
+                <CheckCircle2 className="w-4 h-4 text-primary/10" strokeWidth={1.2} />
               </div>
             </GlassCard>
           </div>
@@ -179,19 +186,21 @@ export default function App() {
       />
       
       <main className="pt-12 pb-24 px-6 max-w-4xl mx-auto relative z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          >
-            {activeTab === 'ritual' && renderRitual()}
-            {activeTab === 'calendar' && renderCalendar()}
-            {activeTab === 'tips' && renderTips()}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div style={{ x: contentX, y: contentY }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, x: 10, filter: "blur(10px)" }}
+              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, x: -10, filter: "blur(10px)" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
+              {activeTab === 'ritual' && renderRitual()}
+              {activeTab === 'calendar' && renderCalendar()}
+              {activeTab === 'tips' && renderTips()}
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
 
         <footer className="mt-8 mb-8 flex flex-col items-center gap-2 opacity-30">
           <div className="h-8 w-[1px] bg-gradient-to-b from-primary to-transparent" />
