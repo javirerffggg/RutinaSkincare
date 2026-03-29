@@ -85,17 +85,36 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
             onClick={() => setActiveTab(tab.id)}
             className="relative flex flex-col items-center justify-center py-1.5 px-5 transition-all duration-500"
           >
-            {/* Burbuja activa más minimalista */}
+            {/* Burbuja activa más minimalista con física orgánica */}
             {isActive && (
-              <motion.div
-                layoutId="activeTabBackground"
-                className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-full"
-                transition={{ type: "spring", stiffness: 400, damping: 35 }}
-              />
+              <>
+                <motion.div
+                  layoutId="activeTabBackground"
+                  className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-full"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 380, 
+                    damping: 30,
+                    mass: 1,
+                    restDelta: 0.001
+                  }}
+                />
+                {/* Spotlight Glow detrás del icono */}
+                <motion.div
+                  layoutId="activeTabSpotlight"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary/20 blur-xl rounded-full z-0"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 380, 
+                    damping: 30,
+                    mass: 1
+                  }}
+                />
+              </>
             )}
             
             <Icon 
-              className={`w-4 h-4 mb-1 z-10 transition-all duration-300 ${isActive ? 'text-primary scale-105' : 'text-stone-500 opacity-50'}`} 
+              className={`w-4 h-4 mb-1 z-10 transition-all duration-300 ${isActive ? 'text-primary scale-110' : 'text-stone-500 opacity-50'}`} 
               strokeWidth={1.2}
             />
             <span className={cn(
