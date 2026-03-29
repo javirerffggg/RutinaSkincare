@@ -88,7 +88,12 @@ export default function App() {
 
       <div className="space-y-4">
         {currentRoutine.map((step, index) => (
-          <RoutineStep key={step.id} step={step} delay={index * 0.1} />
+          <RoutineStep 
+            key={step.id} 
+            step={step} 
+            delay={index * 0.1} 
+            isSpecial={(currentDay === 'Miércoles' || currentDay === 'Sábado') && timeOfDay === 'night'}
+          />
         ))}
       </div>
     </div>
@@ -202,9 +207,7 @@ export default function App() {
           </AnimatePresence>
         </motion.div>
 
-        <footer className="mt-8 mb-8 flex flex-col items-center gap-2 opacity-30">
-          <div className="h-8 w-[1px] bg-gradient-to-b from-primary to-transparent" />
-        </footer>
+        <footer className="mt-8 mb-8" />
       </main>
 
       <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
