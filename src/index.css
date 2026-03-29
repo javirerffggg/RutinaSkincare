@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary: #7a5740;
+  --color-primary-container: #feceb1;
+  --color-primary-fixed-dim: #ebbda1;
+  --color-on-surface: #1a1c1a;
+  --color-on-surface-variant: #4e453d;
+  --color-surface: #faf9f6;
+  --color-surface-container-low: #f4f3f1;
+  --color-surface-container-highest: #e3e2e0;
+  --color-outline-variant: #d2c4b9;
+}
+
+.dark {
+  --color-on-surface: #e5e7eb;
+  --color-on-surface-variant: #9ca3af;
+  --color-surface: #0f172a;
+  --color-surface-container-low: #1e293b;
+  --color-surface-container-highest: #334155;
+  --color-outline-variant: #475569;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .mesh-gradient {
+    background-color: var(--color-surface);
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(254, 206, 177, 0.3) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(243, 226, 224, 0.3) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(122, 87, 64, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(255, 222, 165, 0.2) 0px, transparent 50%);
+  }
+
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .premium-glass {
+    @apply bg-white/35 dark:bg-stone-900/35;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  }
+
+  .rim-light {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .dark .rim-light {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .squircle {
+    border-radius: 1.5rem;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
