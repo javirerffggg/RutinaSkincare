@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useTransform } from 'motion/react';
 import { WEEKLY_ROUTINE, GOLDEN_REMINDERS, DayOfWeek } from './constants';
-import { RitualHeader, RoutineStep, BottomNav, GlassCard } from './components/RitualComponents';
+import { RoutineStep, BottomNav, GlassCard } from './components/RitualComponents';
 import { Sparkles, Sun, Moon, Snowflake, Info, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
@@ -10,23 +10,43 @@ export default function App() {
   const [timeOfDay, setTimeOfDay] = useState<'morning' | 'night'>('morning');
   const [currentDay, setCurrentDay] = useState<DayOfWeek>('Lunes');
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set((clientX / innerWidth) - 0.5);
+    mouseY.set((clientY / innerHeight) - 0.5);
+  };
+
+  const grainX = useTransform(mouseX, [-0.5, 0.5], [-30, 30]);
+  const grainY = useTransform(mouseY, [-0.5, 0.5], [-30, 30]);
+  const meshX = useTransform(mouseX, [-0.5, 0.5], [10, -10]);
+  const meshY = useTransform(mouseY, [-0.5, 0.5], [10, -10]);
+
   useEffect(() => {
     const now = new Date();
     const hours = now.getHours();
-    const dayIndex = (now.getDay() + 6) % 7; // Convert 0-6 (Sun-Sat) to 0-6 (Mon-Sun)
+    const dayIndex = (now.getDay() + 6) % 7;
     const days: DayOfWeek[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
     
     setCurrentDay(days[dayIndex]);
-    const isNight = hours < 6 || hours >= 18;
-    setTimeOfDay(isNight ? 'night' : 'morning');
     
-    if (isNight) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    // Solar Logic
+    const isDawn = hours >= 6 && hours < 9;
+    const isGoldenHour = hours >= 19 && hours < 21;
+    const isNight = hours >= 21 || hours < 6;
     
-    // Simple winter/summer logic (Winter: Nov-Apr, Summer: May-Oct)
+    const root = document.documentElement;
+    root.classList.remove('dawn', 'golden-hour', 'dark');
+    
+    if (isDawn) root.classList.add('dawn');
+    if (isGoldenHour) root.classList.add('golden-hour');
+    if (isNight) root.classList.add('dark');
+
+    setTimeOfDay(isNight || isGoldenHour ? 'night' : 'morning');
+    
     const month = now.getMonth();
     setIsWinter(month < 4 || month > 9);
   }, []);
@@ -36,18 +56,32 @@ export default function App() {
   }, [currentDay, timeOfDay]);
 
   const renderRitual = () => (
-    <div className="space-y-4">
-      <header className="mb-4 space-y-1">
-        <div className="flex justify-between items-start">
-          <h2 className="font-display text-3xl md:text-4xl text-on-surface leading-none tracking-[-0.02em] font-bold">
-            Hoy — <br/><span className="italic font-light opacity-80">Tu Ritual</span>
+    <div className="space-y-6">
+      <header className="mb-8 space-y-2">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="font-display text-4xl md:text-5xl text-on-surface leading-[1.1] tracking-tight font-light">
+            {timeOfDay === 'morning' ? (
+              <>
+                El <span className="italic font-normal">Despertar</span> <br />
+                <span className="font-bold">de la Piel</span>
+              </>
+            ) : (
+              <>
+                Ritual de <br />
+                <span className="italic font-normal">Serenidad</span>
+              </>
+            )}
           </h2>
-        </div>
+        </motion.div>
       </header>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {currentRoutine.map((step, index) => (
-          <RoutineStep key={step.id} step={step} delay={index * 0.05} />
+          <RoutineStep key={step.id} step={step} delay={index * 0.1} />
         ))}
       </div>
     </div>
@@ -102,41 +136,49 @@ export default function App() {
   );
 
   const renderTips = () => (
-    <div className="space-y-4">
-      <header className="mb-4 space-y-1">
+    <div className="space-y-6">
+      <header className="mb-6 space-y-1">
         <h2 className="font-display text-3xl md:text-4xl text-on-surface leading-none tracking-[-0.02em] font-bold">
           Consejos de <br/><span className="italic font-light opacity-80">Oro</span>
         </h2>
-        <p className="text-on-surface-variant max-w-xl text-sm leading-relaxed font-light">
+        <p className="text-on-surface-variant max-w-xl text-sm leading-relaxed font-extralight">
           Descubra los pilares fundamentales del ritual. Principios atemporales diseñados para preservar la luz natural de su piel.
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="columns-1 md:columns-2 gap-4 space-y-4">
         {GOLDEN_REMINDERS.map((reminder, index) => (
-          <GlassCard key={index} delay={index * 0.05} className="flex flex-col justify-between p-4">
-            <div className="mb-3 w-8 h-8 rounded-lg bg-primary-container/30 flex items-center justify-center">
-              <Info className="w-4 h-4 text-primary" />
-            </div>
-            <p className="text-on-surface-variant leading-relaxed text-sm font-light">
-              {reminder}
-            </p>
-            <div className="mt-4 flex justify-end">
-              <CheckCircle2 className="w-4 h-4 text-primary/20" />
-            </div>
-          </GlassCard>
+          <div key={index} className="break-inside-avoid">
+            <GlassCard delay={index * 0.05} className="flex flex-col justify-between p-5">
+              <div className="mb-4 w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center">
+                <Info className="w-5 h-5 text-primary" strokeWidth={1.2} />
+              </div>
+              <p className="text-on-surface-variant leading-relaxed text-sm font-extralight italic">
+                "{reminder}"
+              </p>
+              <div className="mt-6 flex justify-end">
+                <CheckCircle2 className="w-4 h-4 text-primary/10" strokeWidth={1} />
+              </div>
+            </GlassCard>
+          </div>
         ))}
       </div>
     </div>
   );
 
   return (
-    <div className="min-h-screen mesh-gradient relative">
-      <div className="grain-overlay" />
+    <div className="min-h-screen mesh-gradient relative overflow-hidden" onMouseMove={handleMouseMove}>
+      <motion.div 
+        className="grain-overlay" 
+        style={{ x: grainX, y: grainY }}
+      />
       
-      <RitualHeader isWinter={isWinter} timeOfDay={timeOfDay} />
-
-      <main className="pt-20 pb-24 px-6 max-w-4xl mx-auto relative z-10">
+      <motion.div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{ x: meshX, y: meshY }}
+      />
+      
+      <main className="pt-12 pb-24 px-6 max-w-4xl mx-auto relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -152,7 +194,6 @@ export default function App() {
         </AnimatePresence>
 
         <footer className="mt-8 mb-8 flex flex-col items-center gap-2 opacity-30">
-          <span className="font-mono text-[8px] tracking-[0.4em] uppercase">The Digital Alchemist v2.5</span>
           <div className="h-8 w-[1px] bg-gradient-to-b from-primary to-transparent" />
         </footer>
       </main>

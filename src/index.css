@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,24 +6,56 @@
   --font-display: "Playfair Display", serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-primary: #7a5740;
+  --color-primary: var(--primary-color, #7a5740);
   --color-primary-container: #feceb1;
   --color-primary-fixed-dim: #ebbda1;
-  --color-on-surface: #1a1c1a;
-  --color-on-surface-variant: #4e453d;
-  --color-surface: #faf9f6;
+  --color-on-surface: var(--on-surface-color, #1a1c1a);
+  --color-on-surface-variant: var(--on-surface-variant-color, #4e453d);
+  --color-surface: var(--surface-color, #faf9f6);
   --color-surface-container-low: #f4f3f1;
   --color-surface-container-highest: #e3e2e0;
   --color-outline-variant: #d2c4b9;
 }
 
+:root {
+  --primary-color: #7a5740;
+  --on-surface-color: #1a1c1a;
+  --on-surface-variant-color: #4e453d;
+  --surface-color: #faf9f6;
+  --mesh-1: rgba(254, 206, 177, 0.3);
+  --mesh-2: rgba(243, 226, 224, 0.3);
+  --mesh-3: rgba(122, 87, 64, 0.05);
+  --mesh-4: rgba(255, 222, 165, 0.2);
+}
+
+.dawn {
+  --primary-color: #8e94af;
+  --surface-color: #f0f2f8;
+  --on-surface-color: #2d3142;
+  --mesh-1: rgba(142, 148, 175, 0.3);
+  --mesh-2: rgba(180, 185, 210, 0.3);
+  --mesh-3: rgba(100, 110, 150, 0.1);
+  --mesh-4: rgba(200, 210, 240, 0.2);
+}
+
+.golden-hour {
+  --primary-color: #b87333;
+  --surface-color: #fff9f0;
+  --on-surface-color: #432818;
+  --mesh-1: rgba(255, 191, 0, 0.3);
+  --mesh-2: rgba(255, 126, 0, 0.2);
+  --mesh-3: rgba(184, 115, 51, 0.1);
+  --mesh-4: rgba(255, 222, 165, 0.3);
+}
+
 .dark {
-  --color-on-surface: #e5e7eb;
-  --color-on-surface-variant: #9ca3af;
-  --color-surface: #0f172a;
-  --color-surface-container-low: #1e293b;
-  --color-surface-container-highest: #334155;
-  --color-outline-variant: #475569;
+  --on-surface-color: #e5e7eb;
+  --on-surface-variant-color: #9ca3af;
+  --surface-color: #0f172a;
+  --mesh-1: rgba(30, 41, 59, 0.5);
+  --mesh-2: rgba(15, 23, 42, 0.5);
+  --mesh-3: rgba(51, 65, 85, 0.2);
+  --mesh-4: rgba(2, 6, 23, 0.4);
 }
 
 @layer base {
@@ -31,44 +63,51 @@
     @apply bg-surface text-on-surface font-sans antialiased;
     overflow-x: hidden;
   }
+  h2 {
+    /* Ajuste para que las letras itálicas no se corten y respiren mejor */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
 }
 
 @layer components {
   .mesh-gradient {
-    background-color: var(--color-surface);
+    background-color: var(--surface-color);
     background-image: 
-      radial-gradient(at 0% 0%, rgba(254, 206, 177, 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(243, 226, 224, 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(122, 87, 64, 0.05) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(255, 222, 165, 0.2) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, var(--mesh-1) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, var(--mesh-2) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, var(--mesh-3) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, var(--mesh-4) 0px, transparent 50%);
+    transition: background-color 2s ease, background-image 2s ease;
   }
 
   .grain-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.02;
+    opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    will-change: transform;
   }
 
   .premium-glass {
-    @apply bg-white/35 dark:bg-stone-900/35;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    @apply bg-white/10 dark:bg-slate-900/15;
+    backdrop-filter: blur(30px) saturate(200%);
+    -webkit-backdrop-filter: blur(30px) saturate(200%);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
   }
 
   .rim-light {
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 0.5px 0 0 rgba(255, 255, 255, 0.5);
   }
 
   .dark .rim-light {
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0.5px 0 0 rgba(255, 255, 255, 0.1);
   }
 
   .squircle {
