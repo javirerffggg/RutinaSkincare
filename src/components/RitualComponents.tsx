@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sun, Moon, Snowflake, Sparkles } from 'lucide-react';
+import { Sun, Moon, Snowflake, Sparkles, Wind } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -69,6 +69,7 @@ export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial
 export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string) => void }> = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'ritual', label: 'Ritual', icon: Sparkles },
+    { id: 'atmosphere', label: 'Atmósfera', icon: Wind },
     { id: 'calendar', label: 'Calendario', icon: Sun },
     { id: 'tips', label: 'Consejos', icon: Snowflake },
   ];
