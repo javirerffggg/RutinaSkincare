@@ -4,7 +4,7 @@ import { Sun, Moon, Snowflake, Sparkles, Wind } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
@@ -74,6 +74,32 @@ export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial
   );
 };
 
+export const SkeletonCard: React.FC<{ className?: string; delay?: number }> = ({ className, delay = 0 }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={cn("premium-glass rim-light squircle p-6 relative overflow-hidden h-40", className)}
+    >
+      <div className="space-y-4">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 animate-pulse" />
+        <div className="space-y-2">
+          <div className="w-16 h-2 bg-primary/5 rounded animate-pulse" />
+          <div className="w-32 h-8 bg-primary/10 rounded animate-pulse" />
+        </div>
+        <div className="w-full h-12 bg-primary/5 rounded-lg animate-pulse mt-4" />
+      </div>
+      {/* Shimmer effect */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full"
+        animate={{ x: ['100%', '-100%'] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+      />
+    </motion.div>
+  );
+};
+
 export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string) => void }> = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'ritual', label: 'Ritual', icon: Sparkles },
@@ -83,7 +109,7 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
   ];
 
   return (
-    <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 w-auto min-w-[320px] max-w-sm z-50 flex justify-center items-center gap-1 py-2 px-3 bg-white/5 dark:bg-stone-950/20 backdrop-blur-3xl rounded-full border border-white/10 dark:border-white/5 shadow-2xl shadow-black/20">
+    <nav className="fixed bottom-[max(2rem,env(safe-area-inset-bottom,2rem))] left-1/2 -translate-x-1/2 w-auto min-w-[320px] max-w-sm z-50 flex justify-center items-center gap-1 py-2 px-3 bg-white/5 dark:bg-stone-950/20 backdrop-blur-3xl rounded-full border border-white/10 dark:border-white/5 shadow-2xl shadow-black/20">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
