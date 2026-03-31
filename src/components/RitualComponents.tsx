@@ -43,9 +43,10 @@ interface RoutineStepProps {
   };
   delay?: number;
   isSpecial?: boolean;
+  uvIndex?: number;
 }
 
-export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial }) => {
+export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial, uvIndex }) => {
   return (
     <GlassCard delay={delay} className={cn("flex flex-col gap-2", isSpecial && "special-treatment-glow")}>
       <div className="flex-1 space-y-1">
@@ -53,9 +54,16 @@ export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial
           <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-primary/40 leading-none">
             PASO {step.stepNumber.toString().padStart(2, '0')} — {step.category.toUpperCase()}
           </p>
-          <span className="text-[8px] font-mono text-primary/70 bg-primary/10 px-1.5 py-0.5 rounded">
-            {step.title.toUpperCase()}
-          </span>
+          <div className="flex gap-2">
+            {step.category === 'Protección' && uvIndex !== undefined && (
+              <span className="text-[8px] font-mono text-amber-600 bg-amber-500/10 px-1.5 py-0.5 rounded flex items-center gap-1">
+                <Sun className="w-2 h-2" /> UV {uvIndex.toFixed(1)}
+              </span>
+            )}
+            <span className="text-[8px] font-mono text-primary/70 bg-primary/10 px-1.5 py-0.5 rounded">
+              {step.title.toUpperCase()}
+            </span>
+          </div>
         </div>
         <h3 className="text-lg font-display font-bold tracking-tight text-on-surface">{step.product}</h3>
         {step.notes && (

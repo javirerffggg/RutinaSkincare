@@ -146,6 +146,7 @@ export default function App() {
             step={step} 
             delay={index * 0.1} 
             isSpecial={(currentDay === 'Miércoles' || currentDay === 'Sábado') && timeOfDay === 'night'}
+            uvIndex={step.category === 'Protección' ? weatherData.uvIndex : undefined}
           />
         ))}
       </div>
