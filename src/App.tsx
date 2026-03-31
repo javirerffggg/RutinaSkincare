@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'motion/react';
-import { WEEKLY_ROUTINE, GOLDEN_REMINDERS, DayOfWeek } from './constants';
+import { WEEKLY_ROUTINE, GOLDEN_REMINDERS, DayOfWeek, GoldenTip } from './constants';
 import { RoutineStep, BottomNav, GlassCard, SkeletonCard, cn } from './components/RitualComponents';
 import { Sparkles, Sun, Moon, Snowflake, Info, CheckCircle2, Wind, Droplets, Waves, Timer, Navigation, ShieldAlert, CloudFog } from 'lucide-react';
 import * as d3 from 'd3';
@@ -19,6 +19,11 @@ export default function App() {
   
   const [dailyFeelings, setDailyFeelings] = useState<Record<string, string>>(() => {
     const saved = localStorage.getItem('luz_cadiz_feelings');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  const [tipHistory, setTipHistory] = useState<Record<string, string>>(() => {
+    const saved = localStorage.getItem('luz_cadiz_tip_history');
     return saved ? JSON.parse(saved) : {};
   });
 
@@ -175,6 +180,86 @@ export default function App() {
   const currentRoutine = useMemo(() => {
     return WEEKLY_ROUTINE[currentDay][timeOfDay];
   }, [currentDay, timeOfDay]);
+
+  const hashString = (str: string) => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return Math.abs(hash);
+  };
+
+  const selectedGoldenTips = useMemo(() => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    
+    const scoredTips = GOLDEN_REMINDERS.map(tip => {
+      // 1. Rd: Deterministic Randomness (0-100)
+      const rd = (hashString(todayStr + tip.id) % 101);
+      
+      // 2. Cp: Context Score
+      let cp = 0;
+      const text = tip.text.toLowerCase();
+      
+      // Wind Factor (Levante)
+      const isLevante = weatherData.windDirection >= 45 && weatherData.windDirection <= 135;
+      if (isLevante && (text.includes('viento') || text.includes('deshidratación') || text.includes('barrera') || text.includes('levante'))) {
+        cp += 50;
+      }
+      
+      // Olay Days (Wed/Sat)
+      const isOlayDay = currentDay === 'Miércoles' || currentDay === 'Sábado';
+      if (isOlayDay && timeOfDay === 'night' && (text.includes('olay') || text.includes('niacinamida') || text.includes('aha'))) {
+        cp += 70;
+      }
+      
+      // UV Radiation
+      if (weatherData.uvIndex > 5 && (text.includes('uv') || text.includes('garnier') || text.includes('protección') || text.includes('orejas') || text.includes('cuello'))) {
+        cp += 60;
+      }
+      
+      // Circadian Ritual
+      if (timeOfDay === 'night' && (text.includes('noche') || text.includes('regeneración') || text.includes('almohada') || text.includes('reparación'))) {
+        cp += 40;
+      }
+      if (timeOfDay === 'morning' && (text.includes('mañana') || text.includes('energía') || text.includes('frescura') || text.includes('despertar'))) {
+        cp += 40;
+      }
+      
+      // 3. Hp: History Penalty
+      let hp = 0;
+      const lastDate = tipHistory[tip.id];
+      if (lastDate) {
+        const daysDiff = Math.floor((new Date(todayStr).getTime() - new Date(lastDate).getTime()) / (1000 * 60 * 60 * 24));
+        hp = 100 / (Math.max(0, daysDiff) + 1);
+      }
+      
+      return { ...tip, score: rd + cp - hp };
+    });
+    
+    return scoredTips
+      .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id))
+      .slice(0, 6);
+  }, [weatherData, currentDay, timeOfDay, tipHistory]);
+
+  useEffect(() => {
+    const todayStr = new Date().toISOString().split('T')[0];
+    let changed = false;
+    const newHistory = { ...tipHistory };
+    
+    selectedGoldenTips.forEach(tip => {
+      if (newHistory[tip.id] !== todayStr) {
+        newHistory[tip.id] = todayStr;
+        changed = true;
+      }
+    });
+    
+    if (changed) {
+      setTipHistory(newHistory);
+      localStorage.setItem('luz_cadiz_tip_history', JSON.stringify(newHistory));
+    }
+  }, [selectedGoldenTips]);
 
   const renderRitual = () => (
     <div className="space-y-6">
@@ -539,8 +624,8 @@ export default function App() {
     // Combine with static reminders
     const allTips: Tip[] = [
       ...smartTips,
-      ...GOLDEN_REMINDERS.map(text => ({ 
-        text, 
+      ...selectedGoldenTips.map(tip => ({ 
+        text: tip.text, 
         isStatic: true, 
         icon: <Info className="w-5 h-5 text-primary" /> 
       }))
