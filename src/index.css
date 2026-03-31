@@ -50,16 +50,16 @@
 }
 
 .dark {
-  /* Fondo casi negro, pero con calidez para que no sea agresivo */
-  --surface-color: #0a0a0b; 
+  /* Fondo: Negro azulado profundo evocando el Atlántico de noche */
+  --surface-color: #02040a; 
   --on-surface-color: #f5f5f7;
   --on-surface-variant-color: #a1a1aa;
   
-  /* Mesh Gradients nocturnos: violetas y azules ultra profundos */
-  --mesh-1: rgba(30, 30, 45, 0.6);
-  --mesh-2: rgba(15, 15, 20, 0.4);
-  --mesh-3: rgba(45, 30, 60, 0.15);
-  --mesh-4: rgba(10, 10, 15, 0.5);
+  /* Mesh Gradients: Profundidad marina y serenidad lunar */
+  --mesh-1: rgba(0, 50, 100, 0.4); /* Azul cobalto */
+  --mesh-2: rgba(0, 20, 40, 0.5);  /* Azul abismo */
+  --mesh-3: rgba(20, 60, 80, 0.2);  /* Cian oscuro */
+  --mesh-4: rgba(0, 10, 20, 0.6);  /* Sombra marina */
 }
 
 @layer base {
@@ -100,7 +100,8 @@
   }
 
   .dark .grain-overlay {
-    opacity: 0.015; /* Casi invisible, solo para dar textura física */
+    opacity: 0.008; /* Reducido para ser casi imperceptible en modo oscuro */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
   .premium-glass {
@@ -112,7 +113,7 @@
   }
 
   .dark .premium-glass {
-    background: rgba(10, 10, 12, 0.4);
+    background: rgba(2, 4, 10, 0.4);
     backdrop-filter: blur(50px) saturate(200%);
     border: 0.5px solid rgba(255, 255, 255, 0.03);
   }
@@ -164,6 +165,11 @@
     pointer-events: none;
     opacity: 0.02;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  .dark .grain-texture {
+    opacity: 0.01;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
   /* Separadores Invisibles */

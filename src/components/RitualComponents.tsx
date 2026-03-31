@@ -109,7 +109,7 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
   ];
 
   return (
-    <nav className="fixed bottom-[max(2rem,env(safe-area-inset-bottom,2rem))] left-1/2 -translate-x-1/2 w-auto min-w-[320px] max-w-sm z-50 flex justify-center items-center gap-1 py-2 px-3 bg-white/5 dark:bg-stone-950/20 backdrop-blur-3xl rounded-full border border-white/10 dark:border-white/5 shadow-2xl shadow-black/20">
+    <nav className="fixed bottom-[max(2rem,env(safe-area-inset-bottom,2rem))] left-1/2 -translate-x-1/2 w-auto min-w-[320px] max-w-sm z-50 flex justify-center items-center gap-1 py-2 px-3 bg-white/5 dark:bg-black/20 backdrop-blur-3xl rounded-full border border-white/10 dark:border-white/5 shadow-2xl shadow-black/20">
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
