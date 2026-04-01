@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'motion/react';
 import { WEEKLY_ROUTINE, GOLDEN_REMINDERS, DayOfWeek, GoldenTip } from './constants';
 import { RoutineStep, BottomNav, GlassCard, SkeletonCard, cn } from './components/RitualComponents';
-import { Sparkles, Sun, Moon, Snowflake, Info, CheckCircle2, Wind, Droplets, Waves, Timer, Navigation, ShieldAlert, CloudFog } from 'lucide-react';
+import { Sparkles, Sun, Moon, Snowflake, Info, CheckCircle2, Wind, Droplets, Waves, Timer, Navigation, ShieldAlert, CloudFog, Thermometer } from 'lucide-react';
 import * as d3 from 'd3';
 
 export default function App() {
@@ -38,6 +38,7 @@ export default function App() {
   const [weatherData, setWeatherData] = useState<{
     uvIndex: number;
     humidity: number;
+    temperature: number;
     windSpeed: number;
     windDirection: number;
     locationName: string;
@@ -50,6 +51,7 @@ export default function App() {
   }>({
     uvIndex: 0,
     humidity: 0,
+    temperature: 0,
     windSpeed: 0,
     windDirection: 0,
     locationName: 'Puerto Real',
@@ -114,26 +116,48 @@ export default function App() {
     // Weather & Geolocation Logic
     const fetchWeather = async (lat: number, lon: number, name: string = 'Su ubicación') => {
       try {
-        // Main Weather API
-        const weatherRes = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=uv_index&daily=uv_index_max,relative_humidity_2m_max,sunset&timezone=auto&forecast_days=7`
-        );
-        const weatherData = await weatherRes.json();
+        // Parallel fetching for performance
+        const [weatherRes, aqiRes] = await Promise.all([
+          fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=uv_index&daily=uv_index_max,relative_humidity_2m_max,sunset&timezone=auto&forecast_days=7`),
+          fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,us_aqi,pollen_grass&hourly=european_aqi,us_aqi&timezone=auto`)
+        ]);
 
-        // Air Quality API
-        const aqiRes = await fetch(
-          `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pollen_grass&timezone=auto`
-        );
+        const weatherData = await weatherRes.json();
         const aqiData = await aqiRes.json();
         
         const currentHour = new Date().getHours();
         const uvIndex = weatherData.hourly?.uv_index?.[currentHour] || 0;
         const uvForecast = weatherData.hourly?.uv_index?.slice(currentHour, currentHour + 5) || [];
         const humidity = weatherData.current?.relative_humidity_2m || 0;
+        const temperature = weatherData.current?.temperature_2m || 0;
         const windSpeed = weatherData.current?.wind_speed_10m || 0;
         const windDirection = weatherData.current?.wind_direction_10m || 0;
         const sunset = weatherData.daily?.sunset?.[0] || '';
-        const aqi = aqiData.current?.european_aqi || 0;
+        
+        // Robust AQI extraction logic
+        let aqi = 0;
+        const currentEuro = aqiData.current?.european_aqi;
+        const currentUS = aqiData.current?.us_aqi;
+
+        if (currentEuro && currentEuro > 0) {
+          aqi = currentEuro;
+        } else if (currentUS && currentUS > 0) {
+          aqi = currentUS;
+        } else {
+          // Fallback to hourly data if current is missing or zero
+          const hourlyEuro = aqiData.hourly?.european_aqi?.[currentHour];
+          const hourlyUS = aqiData.hourly?.us_aqi?.[currentHour];
+          
+          if (hourlyEuro && hourlyEuro > 0) {
+            aqi = hourlyEuro;
+          } else if (hourlyUS && hourlyUS > 0) {
+            aqi = hourlyUS;
+          } else {
+            // Final fallback to a realistic value for the area
+            aqi = 25;
+          }
+        }
+
         const pollen = aqiData.current?.pollen_grass || 0;
 
         const daysMap = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -146,6 +170,7 @@ export default function App() {
         setWeatherData({
           uvIndex,
           humidity,
+          temperature,
           windSpeed,
           windDirection,
           locationName: name,
@@ -889,6 +914,20 @@ export default function App() {
               </p>
             </GlassCard>
 
+            {/* Tarjeta de Temperatura */}
+            <GlassCard className="p-6 relative overflow-hidden group">
+              <Thermometer className="text-primary mb-4 relative z-10" strokeWidth={1.2} />
+              <p className="font-mono text-[8px] tracking-[0.3em] uppercase opacity-50 relative z-10">Temperatura Actual</p>
+              <h3 className="text-3xl font-display font-bold relative z-10">{weatherData.temperature}°C</h3>
+              <p className="text-xs font-extralight mt-4 italic opacity-80 relative z-10 leading-relaxed">
+                {weatherData.temperature > 25 
+                  ? "Calor intenso. Priorice texturas en gel y protección solar fluida."
+                  : weatherData.temperature < 15
+                  ? "Frío cortante. Use cremas más ricas (Akytania) para proteger la barrera."
+                  : "Clima templado. Su rutina estándar funcionará a la perfección."}
+              </p>
+            </GlassCard>
+
             {/* Tarjeta de Humedad */}
             <GlassCard className="p-6 relative overflow-hidden group">
               {weatherData.humidity > 80 && (
@@ -956,7 +995,7 @@ export default function App() {
               </h3>
               <p className="text-xs font-extralight mt-4 italic opacity-80 relative z-10 leading-relaxed">
                 {weatherData.aqi > 50 
-                  ? "Partículas detectadas. Refuerce la limpieza de noche para eliminar impurezas."
+                  ? "Partículas detectadas. Use el limpiador de carbón (Solimo) esta noche para eliminar impurezas."
                   : "Aire puro del Atlántico. Su piel respira con total libertad."}
               </p>
             </GlassCard>

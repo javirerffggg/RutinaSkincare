@@ -7,7 +7,7 @@ export interface Step {
   product: string;
   notes?: string;
   icon?: string;
-  category: 'Limpieza' | 'Ojos' | 'Hidratación' | 'Protección' | 'Sérum' | 'Crema';
+  category: 'Limpieza' | 'Ojos' | 'Hidratación' | 'Protección' | 'Sérum' | 'Crema' | 'Cabello';
 }
 
 export interface DailyRoutine {
@@ -23,99 +23,113 @@ export const WEEKLY_ROUTINE: WeeklyRoutine = {
   'Lunes': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating', notes: 'Solo para quitar el sudor de la noche.' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on', notes: 'Truco: Guárdalo en la nevera para deshinchar.' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50', notes: 'Obligatorio siempre. Agita el bote antes de usar.' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%', notes: 'Aplicar en entradas y masajear bien.' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on', notes: 'Truco: Guárdalo en la nevera para deshinchar.' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50', notes: 'Obligatorio siempre. Agita el bote antes de usar.' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'Solimo Carbón' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.', notes: '3 gotas para toda la cara.' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%', notes: 'Aplicación nocturna (30 min antes de dormir).' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.', notes: '3 gotas para toda la cara.' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
     ]
   },
   'Martes': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'Solimo Carbón' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
     ]
   },
   'Miércoles': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe (Suave)' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'NADA', notes: 'Noche de Olay (AHA)' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Olay Vit C + AHA', notes: 'Tratamiento completo. No usar Niacinamida.' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'NADA', notes: 'Noche de Olay (AHA)' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Olay Vit C + AHA', notes: 'Tratamiento completo. No usar Niacinamida.' },
     ]
   },
   'Jueves': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'Solimo Carbón' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
     ]
   },
   'Viernes': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'Solimo Carbón' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
     ]
   },
   'Sábado': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe (Suave)' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'NADA', notes: 'Noche de Olay (AHA)' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Olay Vit C + AHA' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'NADA', notes: 'Noche de Olay (AHA)' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Olay Vit C + AHA' },
     ]
   },
   'Domingo': {
     morning: [
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'Agua fresca o CeraVe Hydrating' },
-      { id: 'm2', stepNumber: 2, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
-      { id: 'm3', stepNumber: 3, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
-      { id: 'm4', stepNumber: 4, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
+      { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Ojos', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Hidratación', title: 'Hidratación', product: 'Invierno: Crema Akytania / Verano: Gel L\'Oréal o NADA' },
+      { id: 'm4', stepNumber: 5, category: 'Protección', title: 'Protección', product: 'Garnier Super UV Fluido SPF 50' },
     ],
     night: [
       { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'Solimo Carbón' },
-      { id: 'n2', stepNumber: 2, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
-      { id: 'n3', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n4', stepNumber: 4, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
+      { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum Cara', product: 'Niacinamida T.O.' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Crema Final', product: 'Akytania o Cien Q10' },
     ]
   }
 };
@@ -135,6 +149,11 @@ export const GOLDEN_REMINDERS: GoldenTip[] = [
   { id: 'tip-6', text: "El Roll-on de L'Oréal: Truco de experto: guárdalo siempre en la nevera. El frío potencia el efecto drenante sobre las bolsas matutinas." },
   { id: 'tip-7', text: "Doble Limpieza Nocturna: El Solimo Carbón es potente. Si has usado mucho protector, limpia primero con agua micelar y luego con el jabón." },
   { id: 'tip-8', text: "Akytania en Invierno: Cuando el frío apriete, calienta la crema entre tus manos antes de presionarla suavemente sobre el rostro." },
+
+  // --- MINOXIDIL Y CUIDADO CAPILAR ---
+  { id: 'tip-hair-1', text: "Prevención de Hipertricosis: Ten mucho cuidado al aplicar el Minoxidil en las entradas. Si el producto gotea por tu frente, límpialo inmediatamente para evitar la aparición de vello no deseado en zonas faciales." },
+  { id: 'tip-hair-2', text: "Control de Transferencia Nocturna: Aplica el Minoxidil al menos 30 minutos antes de irte a dormir. Esto asegura que el producto se absorba y no se transfiera de la almohada a tu cara mientras duermes." },
+  { id: 'tip-hair-3', text: "Higiene de Manos: Lávate las manos a conciencia con jabón después de masajear el Minoxidil. Es vital no llevar restos del fármaco a los ojos o labios cuando apliques tus cremas faciales después." },
 
   // --- SOL Y LUZ DEL ATLÁNTICO ---
   { id: 'tip-9', text: "Protección en la Sombra: La arena de la Caleta refleja hasta el 15% de la radiación UV. Protégete aunque estés bajo la sombrilla." },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sun, Moon, Snowflake, Sparkles, Wind } from 'lucide-react';
+import { Sun, Moon, Snowflake, Sparkles, Wind, Zap } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -48,10 +48,13 @@ interface RoutineStepProps {
 
 export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial, uvIndex }) => {
   return (
-    <GlassCard delay={delay} className={cn("flex flex-col gap-2", isSpecial && "special-treatment-glow")}>
+    <GlassCard delay={delay} className={cn("flex flex-col gap-2", isSpecial && "special-treatment-glow", step.category === 'Cabello' && "border-indigo-500/20")}>
       <div className="flex-1 space-y-1">
         <div className="flex justify-between items-center">
-          <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-primary/40 leading-none">
+          <p className={cn(
+            "text-[9px] font-bold tracking-[0.2em] uppercase leading-none",
+            step.category === 'Cabello' ? "text-indigo-500/60" : "text-primary/40"
+          )}>
             PASO {step.stepNumber.toString().padStart(2, '0')} — {step.category.toUpperCase()}
           </p>
           <div className="flex gap-2">
@@ -60,7 +63,15 @@ export const RoutineStep: React.FC<RoutineStepProps> = ({ step, delay, isSpecial
                 <Sun className="w-2 h-2" /> UV {uvIndex.toFixed(1)}
               </span>
             )}
-            <span className="text-[8px] font-mono text-primary/70 bg-primary/10 px-1.5 py-0.5 rounded">
+            {step.category === 'Cabello' && (
+              <span className="text-[8px] font-mono text-indigo-600 bg-indigo-500/10 px-1.5 py-0.5 rounded flex items-center gap-1">
+                <Zap className="w-2 h-2" /> CAPILAR
+              </span>
+            )}
+            <span className={cn(
+              "text-[8px] font-mono px-1.5 py-0.5 rounded",
+              step.category === 'Cabello' ? "text-indigo-500/70 bg-indigo-500/10" : "text-primary/70 bg-primary/10"
+            )}>
               {step.title.toUpperCase()}
             </span>
           </div>
