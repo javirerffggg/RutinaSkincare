@@ -120,7 +120,11 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
   ];
 
   return (
-    <nav className="fixed bottom-[max(2rem,env(safe-area-inset-bottom,2rem))] left-1/2 -translate-x-1/2 w-auto min-w-[320px] max-w-sm z-50 flex justify-center items-center gap-1 py-2 px-3 bg-white/5 dark:bg-black/20 backdrop-blur-3xl rounded-full border border-white/10 dark:border-white/5 shadow-2xl shadow-black/20">
+    <nav className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom,1.5rem))] left-1/2 -translate-x-1/2 w-auto min-w-[340px] max-w-[90vw] z-50 flex justify-center items-center gap-1 py-3 px-4 bg-white/10 dark:bg-black/40 backdrop-blur-[40px] rounded-[2.5rem] border border-white/20 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] ring-1 ring-black/5 overflow-hidden">
+      {/* Liquid Glass Satin Layer & Specular Edge */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
+      
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
@@ -129,45 +133,67 @@ export const BottomNav: React.FC<{ activeTab: string; setActiveTab: (tab: string
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className="relative flex flex-col items-center justify-center py-1.5 px-5 transition-all duration-500"
+            className="relative flex flex-col items-center justify-center py-1.5 px-5 transition-all duration-500 group outline-none"
           >
-            {/* Burbuja activa más minimalista con física orgánica */}
+            {/* Liquid Interaction Indicator */}
             {isActive && (
               <>
                 <motion.div
                   layoutId="activeTabBackground"
-                  className="absolute inset-0 bg-primary/5 dark:bg-primary/10 rounded-full"
+                  className="absolute inset-0 bg-primary/10 dark:bg-primary/20 rounded-2xl"
                   transition={{ 
                     type: "spring", 
-                    stiffness: 380, 
-                    damping: 30,
-                    mass: 1,
-                    restDelta: 0.001
+                    stiffness: 400, 
+                    damping: 35,
+                    mass: 0.8
                   }}
                 />
-                {/* Spotlight Glow detrás del icono */}
+                {/* Specular Highlight on the indicator */}
                 <motion.div
-                  layoutId="activeTabSpotlight"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary/20 blur-xl rounded-full z-0"
+                  layoutId="activeTabHighlight"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent z-20"
                   transition={{ 
                     type: "spring", 
-                    stiffness: 380, 
-                    damping: 30,
-                    mass: 1
+                    stiffness: 400, 
+                    damping: 35
+                  }}
+                />
+                {/* Organic Glow */}
+                <motion.div
+                  layoutId="activeTabSpotlight"
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-primary/30 blur-2xl rounded-full z-0"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 400, 
+                    damping: 35
                   }}
                 />
               </>
             )}
             
-            <Icon 
-              className={`w-4 h-4 mb-1 z-10 transition-all duration-300 ${isActive ? 'text-primary scale-110' : 'text-stone-500 opacity-50'}`} 
-              strokeWidth={1.2}
-            />
+            <motion.div
+              animate={{ 
+                scale: isActive ? 1.15 : 1,
+                y: isActive ? -2 : 0
+              }}
+              whileTap={{ scale: 0.9, y: 1 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              className="relative z-10"
+            >
+              <Icon 
+                className={cn(
+                  "w-4 h-4 mb-1 transition-colors duration-300",
+                  isActive ? 'text-primary' : 'text-stone-500 opacity-60 group-hover:opacity-100'
+                )} 
+                strokeWidth={isActive ? 1.8 : 1.2}
+              />
+            </motion.div>
+            
             <span className={cn(
-              "font-mono text-[7px] tracking-[0.3em] uppercase transition-all duration-300 z-10",
+              "font-mono text-[7px] tracking-[0.3em] uppercase transition-all duration-300 z-10 relative",
               isActive 
-                ? "text-primary font-bold opacity-100" 
-                : "text-stone-500 font-medium opacity-40"
+                ? "text-primary font-bold opacity-100 translate-y-[-1px]" 
+                : "text-stone-500 font-medium opacity-50 group-hover:opacity-80"
             )}>
               {tab.label}
             </span>

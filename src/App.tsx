@@ -117,13 +117,15 @@ export default function App() {
     const fetchWeather = async (lat: number, lon: number, name: string = 'Su ubicación') => {
       try {
         // Parallel fetching for performance
-        const [weatherRes, aqiRes] = await Promise.all([
+        const [weatherRes, openMeteoAqiRes, waqiRes] = await Promise.all([
           fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=uv_index&daily=uv_index_max,relative_humidity_2m_max,sunset&timezone=auto&forecast_days=7`),
-          fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,us_aqi,pollen_grass&hourly=european_aqi,us_aqi&timezone=auto`)
+          fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,us_aqi,pollen_grass&hourly=european_aqi,us_aqi&timezone=auto`),
+          fetch(`https://api.waqi.info/feed/geo:${lat};${lon}/?token=dcf221be8762b85392516b5b4ca82ff673910092`)
         ]);
 
         const weatherData = await weatherRes.json();
-        const aqiData = await aqiRes.json();
+        const openMeteoAqiData = await openMeteoAqiRes.json();
+        const waqiData = await waqiRes.json();
         
         const currentHour = new Date().getHours();
         const uvIndex = weatherData.hourly?.uv_index?.[currentHour] || 0;
@@ -136,17 +138,23 @@ export default function App() {
         
         // Robust AQI extraction logic
         let aqi = 0;
-        const currentEuro = aqiData.current?.european_aqi;
-        const currentUS = aqiData.current?.us_aqi;
-
-        if (currentEuro && currentEuro > 0) {
-          aqi = currentEuro;
-        } else if (currentUS && currentUS > 0) {
-          aqi = currentUS;
-        } else {
-          // Fallback to hourly data if current is missing or zero
-          const hourlyEuro = aqiData.hourly?.european_aqi?.[currentHour];
-          const hourlyUS = aqiData.hourly?.us_aqi?.[currentHour];
+        
+        // 1. Try WAQI (Real-time sensors)
+        if (waqiData.status === 'ok' && waqiData.data?.aqi) {
+          aqi = waqiData.data.aqi;
+        } 
+        // 2. Fallback to Open-Meteo European AQI
+        else if (openMeteoAqiData.current?.european_aqi && openMeteoAqiData.current.european_aqi > 0) {
+          aqi = openMeteoAqiData.current.european_aqi;
+        }
+        // 3. Fallback to Open-Meteo US AQI
+        else if (openMeteoAqiData.current?.us_aqi && openMeteoAqiData.current.us_aqi > 0) {
+          aqi = openMeteoAqiData.current.us_aqi;
+        }
+        // 4. Fallback to Hourly data
+        else {
+          const hourlyEuro = openMeteoAqiData.hourly?.european_aqi?.[currentHour];
+          const hourlyUS = openMeteoAqiData.hourly?.us_aqi?.[currentHour];
           
           if (hourlyEuro && hourlyEuro > 0) {
             aqi = hourlyEuro;
@@ -158,7 +166,7 @@ export default function App() {
           }
         }
 
-        const pollen = aqiData.current?.pollen_grass || 0;
+        const pollen = openMeteoAqiData.current?.pollen_grass || 0;
 
         const daysMap = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         const dailyForecast = weatherData.daily.time.map((time: string, i: number) => ({
