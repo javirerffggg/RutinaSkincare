@@ -10,6 +10,7 @@ import { TipsTab } from './components/TipsTab';
 import { useWeather } from './hooks/useWeather';
 import { useRoutineTracking } from './hooks/useRoutineTracking';
 import { useTipSelector } from './hooks/useTipSelector';
+import { useNotifications } from './hooks/useNotifications';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('ritual');
@@ -19,8 +20,9 @@ export default function App() {
   
   // Custom Hooks
   const weatherData = useWeather();
-  const { completedRoutines, dailyFeelings, toggleCompletion, setFeeling } = useRoutineTracking();
+  const { trackingData, toggleCompletion, setFeeling, getStreak, exportData } = useRoutineTracking();
   const selectedGoldenTips = useTipSelector(weatherData, currentDay, timeOfDay);
+  const { requestPermission } = useNotifications(weatherData, trackingData);
 
   // Motion Values for interactive background
   const mouseX = useMotionValue(0);
@@ -154,10 +156,12 @@ export default function App() {
               )}
               {activeTab === 'calendar' && (
                 <CalendarTab 
-                  completedRoutines={completedRoutines}
-                  dailyFeelings={dailyFeelings}
+                  trackingData={trackingData}
                   toggleCompletion={toggleCompletion}
                   setFeeling={setFeeling}
+                  getStreak={getStreak}
+                  exportData={exportData}
+                  requestPermission={requestPermission}
                   currentDay={currentDay}
                   weatherData={weatherData}
                 />
