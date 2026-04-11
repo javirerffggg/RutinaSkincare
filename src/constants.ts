@@ -22,123 +22,124 @@ export interface WeeklyRoutine {
 export const WEEKLY_ROUTINE: WeeklyRoutine = {
   'Lunes': {
     morning: [
-      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio (8:00 AM)', product: 'Agua o CeraVe Hydrating rápido', notes: 'Solo si sientes la cara grasa. No hagas rutina completa aún.' },
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'CeraVe Hydrating Cleanser', notes: 'Vital: No usar el de carbón tras sudar.' },
+      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio', product: 'Agua o limpieza muy suave', notes: 'Antes del gym.' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'Garnier Pure Active Salicylic Gel', notes: 'Limpiador purificante suave.' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on', notes: 'Efecto hielo para bajar temperatura tras cardio.' },
-      { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide', notes: 'Frena el efecto rebote de grasa tras sudar.' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación Ligera', product: 'L\'Oréal Hydra Energetic Gel', notes: 'Día de Gym: Ultra ligero, no pegajoso.' },
-      { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV', notes: 'Aplica siempre antes de salir de casa.' },
+      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
+      { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'L\'Oréal Hydra Energetic Gel' },
+      { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Profundo', product: 'Solimo Carbón', notes: 'Lunes: Empezar la semana con poros limpios.' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'n2', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n3', stepNumber: 4, category: 'Crema', title: 'Tratamiento AHA', product: 'Olay Vit C + AHA', notes: 'Noche de tratamiento. No usar Niacinamida.' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Hidratación', product: 'Akytania Radiant Face' },
     ]
   },
   'Martes': {
     morning: [
-      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio (8:00 AM)', product: 'Agua o CeraVe Hydrating rápido' },
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'CeraVe Hydrating Cleanser' },
+      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio', product: 'Agua o limpieza muy suave' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'Garnier Pure Active Salicylic Gel' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación Ligera', product: 'L\'Oréal Hydra Energetic Gel' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'L\'Oréal Hydra Energetic Gel' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Suave', product: 'CeraVe Hydrating' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
       { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Hidratación', product: 'Akytania Radiant Face' },
     ]
   },
   'Miércoles': {
     morning: [
-      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio (8:00 AM)', product: 'Agua o CeraVe Hydrating rápido' },
+      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio', product: 'Agua o limpieza muy suave' },
       { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'CeraVe Hydrating Cleanser' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación Ligera', product: 'L\'Oréal Hydra Energetic Gel' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'L\'Oréal Hydra Energetic Gel' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Suave', product: 'CeraVe Hydrating' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
       { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Hidratación', product: 'Akytania Radiant Face' },
     ]
   },
   'Jueves': {
     morning: [
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'CeraVe Hydrating Cleanser', notes: 'Día de descanso: Limpieza suave.' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'CeraVe Hydrating Cleanser', notes: 'Si lo necesitas.' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Nutrición', product: 'Akytania Radiant Face', notes: 'Día de Descanso: Aprovecha para nutrir con aguacate y almendras.' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'Akytania Radiant Face' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Profundo', product: 'Solimo Carbón', notes: 'Día de no gimnasio: Limpieza profunda.' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'n2', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n3', stepNumber: 4, category: 'Crema', title: 'Tratamiento AHA', product: 'Olay Vit C + AHA', notes: 'Noche de tratamiento.' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Tratamiento AHA', product: 'Olay Vit C + AHA', notes: 'La Olay ya hidrata, no hace falta crema extra.' },
     ]
   },
   'Viernes': {
     morning: [
-      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio (8:00 AM)', product: 'Agua o CeraVe Hydrating rápido' },
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'CeraVe Hydrating Cleanser' },
+      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio', product: 'Agua o limpieza muy suave' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'Garnier Pure Active Salicylic Gel' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación Ligera', product: 'L\'Oréal Hydra Energetic Gel' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'L\'Oréal Hydra Energetic Gel' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Suave', product: 'CeraVe Hydrating' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
       { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Hidratación', product: 'Akytania Radiant Face' },
     ]
   },
   'Sábado': {
     morning: [
-      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio (8:00 AM)', product: 'Agua o CeraVe Hydrating rápido' },
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'CeraVe Hydrating Cleanser' },
+      { id: 'm0', stepNumber: 0, category: 'Limpieza', title: 'Pre-Gimnasio', product: 'Agua o limpieza muy suave' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza Post-Gym', product: 'Garnier Pure Active Salicylic Gel' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación Ligera', product: 'L\'Oréal Hydra Energetic Gel' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'L\'Oréal Hydra Energetic Gel' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Suave', product: 'CeraVe Hydrating' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
       { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
       { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Hidratación', product: 'Akytania Radiant Face' },
     ]
   },
   'Domingo': {
     morning: [
-      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'CeraVe Hydrating Cleanser', notes: 'Día de descanso.' },
+      { id: 'm1', stepNumber: 1, category: 'Limpieza', title: 'Limpieza', product: 'CeraVe Hydrating Cleanser' },
       { id: 'm-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'm2', stepNumber: 3, category: 'Ojos', title: 'Contorno', product: 'L\'Oréal Roll-on' },
       { id: 'm3', stepNumber: 4, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
-      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Nutrición', product: 'Akytania Radiant Face' },
+      { id: 'm4', stepNumber: 5, category: 'Hidratación', title: 'Hidratación', product: 'Akytania Radiant Face' },
       { id: 'm5', stepNumber: 6, category: 'Protección', title: 'Protección', product: 'Garnier Delial Super UV' },
     ],
     night: [
-      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador Profundo', product: 'Solimo Carbón' },
+      { id: 'n1', stepNumber: 1, category: 'Limpieza', title: 'Limpiador', product: 'CeraVe Hydrating Cleanser' },
       { id: 'n-hair', stepNumber: 2, category: 'Cabello', title: 'Tratamiento', product: 'Minoxidil Normopil 5%' },
-      { id: 'n2', stepNumber: 3, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon' },
-      { id: 'n3', stepNumber: 4, category: 'Crema', title: 'Tratamiento AHA', product: 'Olay Vit C + AHA' },
+      { id: 'n2', stepNumber: 3, category: 'Sérum', title: 'Sérum', product: 'The Ordinary Niacinamide' },
+      { id: 'n3', stepNumber: 4, category: 'Ojos', title: 'Contorno Ojos', product: 'Beauty of Joseon (Retinal)' },
+      { id: 'n4', stepNumber: 5, category: 'Crema', title: 'Tratamiento AHA', product: 'Olay Vit C + AHA', notes: 'Igual que el jueves, sin otra crema extra.' },
     ]
   }
 };
@@ -150,15 +151,15 @@ export interface GoldenTip {
 
 export const GOLDEN_REMINDERS: GoldenTip[] = [
   // --- REGLAS CRÍTICAS (PRODUCTOS ESPECÍFICOS) ---
-  { id: 'tip-1', text: "Regla de la Olay (Lunes, Jueves y Domingos): Esas noches NUNCA uses la Niacinamida de The Ordinary. La crema Olay ya es el tratamiento completo." },
-  { id: 'tip-gym-1', text: "Post-Gimnasio: Es vital usar el CeraVe Hydrating Cleanser tras entrenar. El Solimo Carbón sería demasiado agresivo para la piel sensible por el sudor y el calor." },
-  { id: 'tip-gym-2', text: "Hidratación Inteligente: Los días de gym usa el Gel de L'Oréal (textura ultra ligera). Los días de descanso, aprovecha la nutrición profunda de Akytania." },
+  { id: 'tip-1', text: "Regla de la Olay (Jueves y Domingos): Esta noche la Olay ya hidrata, no hace falta añadir otra crema encima salvo que notes mucha sequedad." },
+  { id: 'tip-gym-1', text: "Post-Gimnasio: Usa el Garnier Salicylic Gel (L, M, V, S) para una limpieza purificante suave tras sudar. Los miércoles usa CeraVe Hydrating." },
+  { id: 'tip-gym-2', text: "Hidratación Inteligente: Los días de gym usa el Gel de L'Oréal (textura ultra ligera). Los días de descanso, aprovecha la nutrición de Akytania." },
   { id: 'tip-2', text: "El margen de seguridad: Cuando te pongas la crema Olay, no la acerques demasiado a los ojos (donde ya has puesto el de Beauty of Joseon). Deja un dedo de distancia." },
   { id: 'tip-3', text: "Cantidad de Niacinamida: Con 3 gotas para toda la cara es suficiente. Si usas más, te saldrán 'pelotillas' blancas al poner la crema después." },
   { id: 'tip-4', text: "Orden del Contorno BoJ: Siempre ponlo antes de tu crema de noche (Akytania u Olay) para que los activos no se diluyan." },
   { id: 'tip-5', text: "Agita el Garnier: El fluido Super UV SPF 50 es bifásico. Agítalo con energía antes de cada aplicación para asegurar la protección." },
   { id: 'tip-6', text: "El Roll-on de L'Oréal: Truco de experto: guárdalo siempre en la nevera. El frío potencia el efecto drenante sobre las bolsas matutinas tras el gimnasio." },
-  { id: 'tip-7', text: "Doble Limpieza Nocturna: El Solimo Carbón es potente. Úsalo solo las noches indicadas (L, J, D) para resetear los poros sin irritar." },
+  { id: 'tip-7', text: "Limpieza Nocturna: El CeraVe Hydrating es tu aliado diario para mantener la barrera cutánea intacta mientras duermes." },
   { id: 'tip-8', text: "Akytania en Invierno: Cuando el frío apriete, calienta la crema entre tus manos antes de presionarla suavemente sobre el rostro." },
 
   // --- MINOXIDIL Y CUIDADO CAPILAR ---
@@ -292,7 +293,7 @@ export const GOLDEN_REMINDERS: GoldenTip[] = [
   { id: 'tip-115', text: "Limpieza de Gafas: Limpia las almohadillas de tus gafas; ahí se acumula grasa que puede causar granitos en la nariz." },
   { id: 'tip-116', text: "Contorno de Labios: Lo que sobra del contorno de ojos BoJ, aplícalo en el 'código de barras' de los labios." },
   { id: 'tip-117', text: "Piel Saludable: El objetivo no es la perfección, sino una piel que se sienta cómoda y esté sana." },
-  { id: 'tip-118', text: "AHA y Sol: El AHA hace tu piel más sensible al sol al día siguiente. No olvides el Garnier SPF 50 especialmente los martes, viernes y lunes." },
+  { id: 'tip-118', text: "AHA y Sol: El AHA hace tu piel más sensible al sol al día siguiente. No olvides el Garnier SPF 50 especialmente los viernes y lunes (tras las noches de Olay)." },
   { id: 'tip-119', text: "Piel y Almohada: Si duermes de lado, intenta que tu cara no esté totalmente aplastada contra la almohada." },
   { id: 'tip-120', text: "El Espejo de Aumento: ¡Tíralo! Nadie te ve tan de cerca. Solo sirve para que te obsesiones con poros normales." },
   { id: 'tip-121', text: "Reflejo de la Luz: Una piel bien hidratada refleja la luz de Cádiz de forma espectacular. La hidratación es la clave." },
@@ -301,7 +302,7 @@ export const GOLDEN_REMINDERS: GoldenTip[] = [
   { id: 'tip-124', text: "Luz de Luna: Tu piel descansa contigo. El ritual de noche es el cierre perfecto para un día en la Bahía." },
   { id: 'tip-125', text: "Protector Garnier: Es tan ligero que no tienes excusa para no usarlo. Es tu mejor seguro de vida cutáneo." },
   { id: 'tip-126', text: "Akytania: Una marca que entiende la luz. Disfruta de su textura y de cómo calma tu piel tras el día." },
-  { id: 'tip-127', text: "Orden de Olay: Limpieza -> Contorno Ojos -> Crema Olay. Sin pasos intermedios que interfieran." },
+  { id: 'tip-127', text: "Orden de Olay: Limpieza -> Sérum Niacinamida -> Contorno Ojos -> Crema Olay. La Olay sella el tratamiento." },
   { id: 'tip-128', text: "Orden de Noche Normal: Limpieza -> Sérum -> Contorno Ojos -> Crema Final." },
   { id: 'tip-129', text: "Orden de Mañana: Limpieza -> Contorno Ojos -> Hidratante -> PROTECTOR SOLAR." },
   { id: 'tip-130', text: "Final del Ritual: Sonríe al espejo. Tu piel está lista, tú estás listo. Disfruta de la Luz de Cádiz." }
