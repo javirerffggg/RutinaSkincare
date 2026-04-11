@@ -130,7 +130,7 @@ export const CalendarTab: React.FC<CalendarTabProps> = ({
               const dayName = days[index];
               const routine = WEEKLY_ROUTINE[dayName];
               const isToday = dateStr === new Date().toISOString().split('T')[0];
-              const isSpecial = dayName === 'Miércoles' || dayName === 'Sábado';
+              const isSpecial = dayName === 'Lunes' || dayName === 'Jueves' || dayName === 'Domingo';
               const dayTracking = trackingData[dateStr] || { morning: false, night: false };
               const dayWeather = weatherData?.dailyForecast.find(f => f.day === dayName);
 
