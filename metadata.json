@@ -1,7 +1,5 @@
 {
   "name": "Luz de Cádiz",
   "description": "Tu Plan Maestro de Skincare personalizado. Un ritual de lujo diseñado para la luz del Atlántico.",
-  "requestFramePermissions": [
-    "geolocation"
-  ]
+  "requestFramePermissions": []
 }

@@ -121,22 +121,7 @@ export const useWeather = () => {
       }
     };
 
-    if (navigator.geolocation) {
-      const geoId = navigator.geolocation.getCurrentPosition(
-        (position) => {
-          if (!signal.aborted) {
-            fetchWeather(position.coords.latitude, position.coords.longitude);
-          }
-        },
-        () => {
-          if (!signal.aborted) {
-            fetchWeather(36.5282, -6.1901, 'Puerto Real');
-          }
-        }
-      );
-    } else {
-      fetchWeather(36.5282, -6.1901, 'Puerto Real');
-    }
+    fetchWeather(36.5282, -6.1901, 'Puerto Real');
 
     return () => controller.abort();
   }, []);
